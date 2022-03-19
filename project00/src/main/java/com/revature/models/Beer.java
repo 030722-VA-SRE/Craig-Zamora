@@ -1,5 +1,5 @@
 package com.revature.models;
-//models have properties of things that we are working with. 
+//models have properties of things that we are working with. Item resources 
 
 public class Beer {
 	
