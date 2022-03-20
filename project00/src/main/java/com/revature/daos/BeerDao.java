@@ -11,8 +11,7 @@ public interface BeerDao {
 
 	
 	public Beer getBeerById(int id);
-
-	List<Beer> getAllBeers(int id, String name, String type);
+	List<Beer> getAllBeers();
 	
 	
 }
