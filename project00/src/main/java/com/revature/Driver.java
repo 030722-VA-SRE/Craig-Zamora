@@ -1,6 +1,9 @@
 package com.revature;
 
+
+import com.revature.exceptions.ItemNotFoundException;
 import com.revature.services.BeerServices;
+
 import io.javalin.Javalin;
 
 public class Driver {
@@ -20,7 +23,18 @@ public class Driver {
 		});
 		
 		app.get("beers/{idSpecified}", (ctx) -> {  // beers{idSpecified} is endpoint that gets beer by specified id
-			
+
+			int id = Integer.parseInt(ctx.pathParam("idSpecified")); //Integer wraps primitive int into an object. parseInt parses a string arguement as an int. pathParam to get specific value in curly brackets
+
+			try {
+				ctx.json(bs.getById(id));
+				ctx.status(200);
+			} catch (ItemNotFoundException e){
+				ctx.result("Beer " + id + " was not found or does not exist.");
+				ctx.status(404);
+				
+			}
+
 			
 		});
 

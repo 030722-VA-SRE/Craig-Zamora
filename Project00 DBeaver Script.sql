@@ -3,20 +3,26 @@
  * Beer name
  * 
  */
+
+select * from beer 
+
+
 drop table beer;
 create table beer(
-	id serial primary key, 
+	id serial primary key,
 	price numeric(7,2) not null,
-	name  varchar(20) not null unique	
+	beername varchar (20) not null unique,
+	beertype  varchar(20) not null
 );
 
-insert into beer(name, price) values
-	('DosXX', 7.99),
-	('Truly', 8.99),
-	('Guinness', 5.99), 
-	('Samuel Adams', 7.99), 
-	('Blue Moon', 6.99),
-	('Heineken', 5.99),	
-	('Pink Moon', 6.99);
-	
-select * from beer 
+insert into beer(beerName, price, beerType) values
+	('DosXX', 7.99, 'Golden Pilsner'),
+	('Truly', 8.99, 'Hard Seltzer'),
+	('Guinness', 5.99, 'Irish Stout'), 
+	('Samuel Adams', 7.99, 'IPA'), 
+	('Blue Moon', 6.99, 'Wheat Ale'),
+	('Heineken', 5.99, 'lager'),	
+	('White Claw', 6.99, 'test');
+
+
+select * from beer where price = 5.99;

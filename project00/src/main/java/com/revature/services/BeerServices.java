@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.revature.daos.BeerDao;
 import com.revature.daos.BeerPostgres;
+import com.revature.exceptions.ItemNotFoundException;
 import com.revature.models.Beer;
 
 //Class is in charge of business logic
@@ -16,16 +17,26 @@ public class BeerServices {
 	public BeerServices() {
 		bd = new BeerPostgres();
 	}
-	
-	public List<Beer> getAll(){
 
-	List<Beer> beers = bd.getAllBeers();
+	public List<Beer> getAll() {
 
-		
+		List<Beer> beers = bd.getAllBeers();
+
 		return beers;
-		
+
 	}
 
-	
+	public Beer getById(int id) throws ItemNotFoundException {
+		Beer beer = bd.getBeerById(id);
+
+		if (beer == null) {
+			throw new ItemNotFoundException();
+			
+		} else {
+
+			return beer;
+		}
+
+	}
 
 }
