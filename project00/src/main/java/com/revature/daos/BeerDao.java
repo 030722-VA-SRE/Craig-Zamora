@@ -8,9 +8,11 @@ public interface BeerDao {
 
 	
 	//method 
-	public List<Beer> getAllBeers();
+
 	
-	public int getBeerById();
+	public Beer getBeerById(int id);
+
+	List<Beer> getAllBeers(int id, String name, String type);
 	
 	
 }
