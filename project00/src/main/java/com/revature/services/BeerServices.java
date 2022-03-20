@@ -65,6 +65,17 @@ public class BeerServices {
 	public void addBeer(Beer newBeer) {
 		bd.addNewBeer(newBeer);
 	}
+	
+	public void deleteById(int id) {
+		bd.deleteBeerById(id);
+	}
+	
+	public void updateById(Beer updatedBeer, int id) {
+		bd.updateBeerById(updatedBeer, id);
+	}
 
+	public void reorderById() {
+		bd.reorderBeersById();
+	}
 
 }

@@ -32,4 +32,11 @@ insert into beer (beerName, price, beerType) values  ('Pink Claw', 1.99, 'fun be
 
 select * from beer where price = 8.99 and beerType = 'Hard Seltzer';
 
-select * from beer where beerType = Hard Seltzer;
+select * from beer where beerType = Hard Seltzer; -- wrong, forgot '' around name
+
+delete from beer where id = 7; -- code to delete user by id;
+
+update beer set beername = 'TresXXX' where id = 1;
+select * from beer order by id asc; -- code to order table after updating; 
+
+update beer set beername = 'TresXXX',  price = 19.99, beertype  = 'Expensive' where id = 1; 

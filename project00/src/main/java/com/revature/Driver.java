@@ -41,6 +41,7 @@ public class Driver {
 			double price;
 
 			if (name == null && type == null && idString == null && priceString == null) {
+				bs.reorderById();
 				ctx.json(bs.getAll());
 				ctx.status(200);
 			} else if (idString != null && name == null && type == null && priceString == null) {
@@ -90,6 +91,21 @@ public class Driver {
 			
 			
 		});
+		
+		app.delete("beers/{idSpecified}", (ctx) -> {
+			int id = Integer.parseInt(ctx.pathParam("idSpecified"));
+			bs.deleteById(id);
+			
+		});
+		
+		app.put("beers/{idSpecified}", (ctx) -> {
+			int id = Integer.parseInt(ctx.pathParam("idSpecified"));
+			Beer updatedBeer = ctx.bodyAsClass(Beer.class);
+			bs.updateById(updatedBeer, id);
+			
+		});
+		
+		
 
 	}
 }

@@ -109,8 +109,7 @@ public class BeerPostgres implements BeerDao {
 	public List<Beer> getSpecificBeers(double price, String type) {
 
 		List<Beer> beers = new ArrayList<>();
-		if (price != 0 && type == null)
-		{
+		if (price != 0 && type == null) {
 			beers = getBeerByPrice(price);
 		} else if (price == 0 && type != null) {
 			beers = getBeerByType(type);
@@ -138,7 +137,7 @@ public class BeerPostgres implements BeerDao {
 
 			while (rs.next()) {
 				beer = new Beer(); // Need to reinstanciate beer as to not cause array to repeatedly populate last
-										// value.
+									// value.
 				beer.setId(rs.getInt("id"));
 				beer.setName(rs.getString("beerName"));
 				beer.setPrice(rs.getDouble("price"));
@@ -231,10 +230,9 @@ public class BeerPostgres implements BeerDao {
 	public void addNewBeer(Beer newBeer) {
 		String sql = "insert into beer (beerName, price, beerType) values  (?,?, ?) returning id;";
 
-
 		try (Connection c = ConnectionUtil.getConnectionFromEnv()) {
 			PreparedStatement ps = c.prepareStatement(sql);
-			ps.setString(1, newBeer.getName()); 
+			ps.setString(1, newBeer.getName());
 			ps.setDouble(2, newBeer.getPrice());
 			ps.setString(3, newBeer.getType());
 			ResultSet rs = ps.executeQuery(); // ResultSet object (rs) maintains a cursor point to the current row of
@@ -255,8 +253,62 @@ public class BeerPostgres implements BeerDao {
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	public void deleteBeerById(int id) {
+		String sql = "delete from beer where id = ?";
+
+		try (Connection c = ConnectionUtil.getConnectionFromEnv()) {
+			PreparedStatement ps = c.prepareStatement(sql);
+			ps.setInt(1, id); // to set 1st question mark to value id - > i.e parameterizing the sql statement
+								// with the id we are looking for.
+			ps.execute(); //executes prepared statement to delete item by id
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
 
 	}
 
+	@Override
+	public void updateBeerById(Beer updatedBeer, int id) {
+		String sql = "update beer set beername = ? , price = ? , beertype = ? where id = ? ; ";
+		String aSql = "select * from beer order by id asc;" ;
+		
+		try (Connection c = ConnectionUtil.getConnectionFromEnv()){
+			PreparedStatement ps = c.prepareStatement(sql);
+			PreparedStatement as = c.prepareStatement(aSql);
+			ps.setString(1, updatedBeer.getName());
+			ps.setDouble(2, updatedBeer.getPrice());
+			ps.setString(3, updatedBeer.getType());
+			ps.setInt(4, id);
+			
+			ps.execute();
+			as.execute();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
+	@Override
+	public void reorderBeersById() {
+		String sql = "select * from beer order by id asc;" ;
+		
+		try (Connection c = ConnectionUtil.getConnectionFromEnv()){
+			PreparedStatement ps = c.prepareStatement(sql);
+
+			
+			ps.execute();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 }
