@@ -38,5 +38,10 @@ public class BeerServices {
 		}
 
 	}
+	
+	public Beer getSpecific(int id, String name, double price, String type) {
+		Beer beer = bd.getBeerSpecifiedValue(id, name, price, type);
+		return beer;
+	}
 
 }

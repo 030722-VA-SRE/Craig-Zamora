@@ -56,6 +56,81 @@ public class BeerPostgres implements BeerDao {
 								// with the id we are looking for.
 			ResultSet rs = ps.executeQuery(); // ResultSet object (rs) maintains a cursor point to the current row of
 												// data, usually executed by a query of database (ps in this case) (list
+												// of all query results)
+
+			if (rs.next()) {
+				beer = new Beer();
+				beer.setId(rs.getInt("id"));
+				beer.setName(rs.getString("beerName"));
+				beer.setPrice(rs.getDouble("price"));
+				beer.setType(rs.getString("beerType"));
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return beer;
+	}
+
+	@Override
+	public Beer getBeerSpecifiedValue(int id, String name, double price, String type) {
+		Beer beer = null;
+		if (name != null && type == null && id == 0 && price == 0) {
+			beer = getBeerByName(name);
+		} else if (name == null && type == null && id != 0 && price == 0) {
+			beer = getBeerById(id);
+		}else if (name == null && type != null && id == 0 && price == 0) {
+			beer = getBeerByType(type);
+		}else if (name == null && type == null && id == 0 && price != 0) {
+			beer = getBeerByPrice(price);
+		}
+		return beer;
+	}
+
+	private Beer getBeerByPrice(double price) {
+		String sql = "select * from beer where price = ?"; // ? is a marker to be parameterized
+		Beer beer = null;
+
+		try (Connection c = ConnectionUtil.getConnectionFromEnv()) {
+			PreparedStatement ps = c.prepareStatement(sql);
+			ps.setDouble(1, price); // to set 1st question mark to value id - > i.e parameterizing the sql statement
+								// with the id we are looking for.
+			ResultSet rs = ps.executeQuery(); // ResultSet object (rs) maintains a cursor point to the current row of
+												// data, usually executed by a query of database (ps in this case) (list
+											// of all query results)
+
+			if (rs.next()) {
+				beer = new Beer();
+				beer.setId(rs.getInt("id"));
+				beer.setName(rs.getString("beerName"));
+				beer.setPrice(rs.getDouble("price"));
+				beer.setType(rs.getString("beerType"));
+				
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return beer;
+	}
+	
+
+	private Beer getBeerByType(String type) {
+		String sql = "select * from beer where beertype = ?"; // ? is a marker to be parameterized
+		Beer beer = null;
+
+		try (Connection c = ConnectionUtil.getConnectionFromEnv()) {
+			PreparedStatement ps = c.prepareStatement(sql);
+			ps.setString(1, type); // to set 1st question mark to value id - > i.e parameterizing the sql statement
+								// with the id we are looking for.
+			ResultSet rs = ps.executeQuery(); // ResultSet object (rs) maintains a cursor point to the current row of
+												// data, usually executed by a query of database (ps in this case) (list
 											// of all query results)
 
 			if (rs.next()) {
@@ -76,10 +151,35 @@ public class BeerPostgres implements BeerDao {
 		return beer;
 	}
 
-	@Override
-	public Beer getBeerSpecifiedValue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Beer getBeerByName(String name) {
+		String sql = "select * from beer where beername = ?";  // ? is a marker to be parameterized
+		Beer beer = null;
 
+		try (Connection c = ConnectionUtil.getConnectionFromEnv()) {
+			PreparedStatement ps = c.prepareStatement(sql);
+			ps.setString(1, name); // to set 1st question mark to value id - > i.e parameterizing the sql statement
+								// with the id we are looking for.
+			ResultSet rs = ps.executeQuery(); // ResultSet object (rs) maintains a cursor point to the current row of
+												// data, usually executed by a query of database (ps in this case) (list
+											// of all query results)
+
+			if (rs.next()) {
+				beer = new Beer();
+				beer.setId(rs.getInt("id"));
+				beer.setName(rs.getString("beerName"));
+				beer.setPrice(rs.getDouble("price"));
+				beer.setType(rs.getString("beerType"));
+				
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return beer;
+	}
+	
+	
 }
