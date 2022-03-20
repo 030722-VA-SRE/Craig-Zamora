@@ -31,17 +31,40 @@ public class BeerServices {
 
 		if (beer == null) {
 			throw new ItemNotFoundException();
-			
+
 		} else {
 
 			return beer;
 		}
 
 	}
-	
-	public Beer getSpecific(int id, String name, double price, String type) {
-		Beer beer = bd.getBeerSpecifiedValue(id, name, price, type);
-		return beer;
+
+	public Beer getByName(String name) throws ItemNotFoundException {
+		Beer beer = bd.getBeerByName(name);
+
+		if (beer == null) {
+			throw new ItemNotFoundException();
+
+		} else {
+
+			return beer;
+		}
 	}
+
+	public List<Beer> getSpecific(double price, String type) throws ItemNotFoundException {
+
+		List<Beer> beers = bd.getSpecificBeers(price, type);
+		if (beers == null) {
+			throw new ItemNotFoundException();
+
+		} else {
+
+			return beers;
+		}
+	}
+	public void addBeer(Beer newBeer) {
+		bd.addNewBeer(newBeer);
+	}
+
 
 }

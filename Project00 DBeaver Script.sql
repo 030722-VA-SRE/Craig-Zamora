@@ -22,7 +22,14 @@ insert into beer(beerName, price, beerType) values
 	('Samuel Adams', 7.99, 'IPA'), 
 	('Blue Moon', 6.99, 'Wheat Ale'),
 	('Heineken', 5.99, 'lager'),	
-	('White Claw', 6.99, 'test');
+	('White Claw', 6.99, 'Hard Seltzer');
 
 
+select * from beer where price = 7.99;
 select * from beer where price = 5.99;
+
+insert into beer (beerName, price, beerType) values  ('Pink Claw', 1.99, 'fun beer') returning id;
+
+select * from beer where price = 8.99 and beerType = 'Hard Seltzer';
+
+select * from beer where beerType = Hard Seltzer;
