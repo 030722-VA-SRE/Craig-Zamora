@@ -1,0 +1,108 @@
+AWS
+Cloud / AWS Overview
+How would you describe AWS? What is "the cloud" or "cloud computing" and why is it so popular now?
+ Amazon Web Services is a cloud platform/infrastrucure with pay as you go services built for a variaty of applications.
+ Cloud computing is using a 3rd party's data centers for data storage, network, and other needs
+ Cloud computing is popular because of it's scalabilty, durability, no need to manage hardware or provide upgrades, all leading to better cost savings
+
+
+Define Infrastructure, Platform, and Software as a Service
+Iaas : Infrastucture as a Service -> User will need to manage applications, runtime environment, middleware and operating system, and example of this is AWS's EC2
+Paas : Platform as a Service -> Users need to managa applications and runtime environment
+Saas : Software as a service -> Users will not need to manage any of the services (everything is abstracted). 
+
+
+What's the difference between a Region and an Availability Zone (AZ)?
+AWS region is a geographical location with physical data centers (independent of other regions
+
+
+How are you charged for using AWS services? Does it vary by service?
+	Not for the 1st year if you have have never used it. 
+	It does vary service by service depending on size and speed you need. 
+
+Different ways to interact with AWS services?
+	Dbeaver, AMI
+
+Also do practicals and unix/linux
+	
+Practicals
+Given the following table 'employees'...
+
+id	firstName	lastName	salary	dept
+1	Michael	Scott	65	Sales
+2	Dwight	Schrute	75	Sales
+3	Toby	Flenderson	80	HR
+4	Jim	Halpert	90	Sales
+5	Oscar	Martinez	90	Accounting
+6	Angela	Martin	75	Accounting
+7	Kevin	Malone	70	Accounting
+8	Holly	Flax	60	HR
+9	Creed	Branton	70	Quality Assurance
+Write a query to find all data in the table
+	select * from employees;
+
+Write a query to find employees with a salary over 75
+	select * from employees where salary > 75;
+
+Write a query to find employees whose first name contains an 'e' or whose last name begins with 'S'\
+	select * from employees where lastName  like 'S%'
+	union 
+	select * from employees where firstName like '%e%';
+
+Write a query to find the first name of all employees who do not work in accounting
+	select firstName from employees where dept != 'Accounting' ;
+
+Write a query to find the average salary of all employees whose last names begin with 'M'
+	select avg(Salary) from employees where lastName like 'M%';
+
+Write a query to find the highest paid salesperson
+	select max(Salary) from employees where dept = 'Sales';
+
+Write a query to combine the resultsets of any two previous queries
+	select * from employees where dept != 'Accounting'
+	union 
+	select * from employees where lastName  like 'S%';
+	
+Remove all members of accounting from the database
+	delete from employees where dept = 'Accounting';
+
+Given removing the dept column from the employees table and creating a table 'department' and linking the two via a foreign key relationship
+
+dept_id	name
+1	Sales
+2	HR
+3	Accounting
+4	Customer Service
+Write a query to find the salary of the lowest paid salesperson (HINT: use a join)
+	select min(employees.salary) from employees 
+	join
+	department on employees.dept_id = dept.dept_id where dept = 'Sales';
+Write a query to find the average salary of each department
+	select avg(employees.salary), distinct(employees.dept) from department
+	join
+	employees on dept. = dept.dept_id
+Write a query to find all possible combinations of employees and departments. How many records do you expect?
+	32	
+	select from employees cross join department
+	
+
+Change the name of department 4 to 'Quality Assurance'
+
+Remove both tables
+
+	drop table employees;
+	drop table department;
+
+
+Write a basic bash script
+
+ie: installing java/maven/git to an ec2
+sudo y7um update
+sudo yum install git
+maven compile  exec:java
+sudo yum install java-1.8.0-openjdk-devel
+
+if you're feeling ambitious, a script that would delete a file if it exists
+ echo "Who am I conversing with?"
+ read ENTRY
+ echo "A pleasure to make your acquaintance $ENTRY
