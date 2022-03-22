@@ -245,6 +245,8 @@ public class BeerPostgres implements BeerDao {
 //				beer.setName(rs.getString("beerName"));
 //				beer.setPrice(rs.getDouble("price"));
 //				beer.setType(rs.getString("beerType"));
+			
+			//check that the rows change is greater than zero.
 //
 //			}
 

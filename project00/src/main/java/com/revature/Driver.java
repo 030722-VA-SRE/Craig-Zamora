@@ -1,14 +1,32 @@
 package com.revature;
 
+import java.io.FileNotFoundException;
+
+
+import org.eclipse.jetty.util.log.Log;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
+
 import com.revature.exceptions.ItemNotFoundException;
 import com.revature.models.Beer;
 import com.revature.services.BeerServices;
 
+
+
 import io.javalin.Javalin;
 
 public class Driver {
+	
+	private static Logger log = LogManager.getRootLogger();
 
 	public static void main(String[] args) {
+		
+		log.info("Testing");
+		log.error("Testing error");
+		
 		BeerServices bs = new BeerServices();
 
 		Javalin app = Javalin.create();
