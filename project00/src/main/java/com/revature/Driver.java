@@ -25,7 +25,7 @@ public class Driver {
 	public static void main(String[] args) {
 		
 		log.info("Testing");
-		log.error("Testing error");
+
 		
 		BeerServices bs = new BeerServices();
 
@@ -45,6 +45,7 @@ public class Driver {
 			} catch (ItemNotFoundException e) {
 				ctx.result("Beer " + id + " was not found or does not exist.");
 				ctx.status(404);
+				log.info("Beer " + id + " was not found or does not exist.");
 
 			}
 
@@ -71,6 +72,7 @@ public class Driver {
 				} catch (ItemNotFoundException e) {
 					ctx.result("Beer " + id + " was not found or does not exist.");
 					ctx.status(404);
+					log.info("Beer " + id + " was not found or does not exist.");
 
 				}
 
@@ -93,6 +95,7 @@ public class Driver {
 				}
 
 				if (bs.getSpecific(price, type) != null) {
+					System.out.println(bs.getSpecific(price, type));
 					ctx.json(bs.getSpecific(price, type));
 					ctx.status(200);
 				} else {
@@ -106,20 +109,22 @@ public class Driver {
 		app.post("beers", (ctx) -> {
 			Beer newBeer = ctx.bodyAsClass(Beer.class);
 			bs.addBeer(newBeer);
-			
+			log.info("New beer was added");
 			
 		});
 		
 		app.delete("beers/{idSpecified}", (ctx) -> {
 			int id = Integer.parseInt(ctx.pathParam("idSpecified"));
 			bs.deleteById(id);
-			
+			log.info("Old beer was deleted");
 		});
 		
 		app.put("beers/{idSpecified}", (ctx) -> {
 			int id = Integer.parseInt(ctx.pathParam("idSpecified"));
 			Beer updatedBeer = ctx.bodyAsClass(Beer.class);
 			bs.updateById(updatedBeer, id);
+			
+			log.info("Beer" + id + "was updated");
 			
 		});
 		

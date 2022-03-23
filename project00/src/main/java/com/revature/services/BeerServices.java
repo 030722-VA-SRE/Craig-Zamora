@@ -17,6 +17,10 @@ public class BeerServices {
 	public BeerServices() {
 		bd = new BeerPostgres();
 	}
+	
+	public BeerServices(BeerDao bd) {
+		this.bd = bd;
+	}
 
 	public List<Beer> getAll() {
 
@@ -68,6 +72,7 @@ public class BeerServices {
 	
 	public void deleteById(int id) {
 		bd.deleteBeerById(id);
+		
 	}
 	
 	public void updateById(Beer updatedBeer, int id) {

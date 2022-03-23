@@ -245,8 +245,8 @@ public class BeerPostgres implements BeerDao {
 //				beer.setName(rs.getString("beerName"));
 //				beer.setPrice(rs.getDouble("price"));
 //				beer.setType(rs.getString("beerType"));
-			
-			//check that the rows change is greater than zero.
+
+			// check that the rows change is greater than zero.
 //
 //			}
 
@@ -265,7 +265,7 @@ public class BeerPostgres implements BeerDao {
 			PreparedStatement ps = c.prepareStatement(sql);
 			ps.setInt(1, id); // to set 1st question mark to value id - > i.e parameterizing the sql statement
 								// with the id we are looking for.
-			ps.execute(); //executes prepared statement to delete item by id
+			ps.execute(); // executes prepared statement to delete item by id
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -276,41 +276,39 @@ public class BeerPostgres implements BeerDao {
 	@Override
 	public void updateBeerById(Beer updatedBeer, int id) {
 		String sql = "update beer set beername = ? , price = ? , beertype = ? where id = ? ; ";
-		String aSql = "select * from beer order by id asc;" ;
-		
-		try (Connection c = ConnectionUtil.getConnectionFromEnv()){
+		String aSql = "select * from beer order by id asc;";
+
+		try (Connection c = ConnectionUtil.getConnectionFromEnv()) {
 			PreparedStatement ps = c.prepareStatement(sql);
 			PreparedStatement as = c.prepareStatement(aSql);
 			ps.setString(1, updatedBeer.getName());
 			ps.setDouble(2, updatedBeer.getPrice());
 			ps.setString(3, updatedBeer.getType());
 			ps.setInt(4, id);
-			
+
 			ps.execute();
 			as.execute();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
 	public void reorderBeersById() {
-		String sql = "select * from beer order by id asc;" ;
-		
-		try (Connection c = ConnectionUtil.getConnectionFromEnv()){
+		String sql = "select * from beer order by id asc;";
+
+		try (Connection c = ConnectionUtil.getConnectionFromEnv()) {
 			PreparedStatement ps = c.prepareStatement(sql);
 
-			
 			ps.execute();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 	}
 }

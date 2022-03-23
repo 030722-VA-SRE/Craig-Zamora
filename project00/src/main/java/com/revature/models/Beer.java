@@ -9,11 +9,23 @@ public class Beer {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+
 
 	private int id;
 	private String name;
 	private double price;
 	private String type;
+
+	
+	
+	public Beer(int id, String name, double price, String type) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.type = type;
+	}
 
 	public String getType() {
 		return type;
