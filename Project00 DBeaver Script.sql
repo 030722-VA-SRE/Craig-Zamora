@@ -20,7 +20,7 @@ insert into beer(beerName, price, beerType) values
 	('Truly', 8.99, 'Hard Seltzer'),
 	('Guinness', 5.99, 'Irish Stout'), 
 	('Samuel Adams', 7.99, 'IPA'), 
-	('Blue Moon', 6.99, 'Wheat Ale'),
+	('Blue Moon', 10.99, 'Wheat Ale'),
 	('Heineken', 5.99, 'lager'),	
 	('White Claw', 6.99, 'Hard Seltzer');
 

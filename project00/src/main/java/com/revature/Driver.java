@@ -23,8 +23,7 @@ public class Driver {
 	private static Logger log = LogManager.getRootLogger();
 
 	public static void main(String[] args) {
-		
-		log.info("Testing");
+		log.info("Running Tests");
 
 		
 		BeerServices bs = new BeerServices();
@@ -93,7 +92,7 @@ public class Driver {
 				} else {
 					price = 0;
 				}
-
+ 
 				if (bs.getSpecific(price, type) != null) {
 					System.out.println(bs.getSpecific(price, type));
 					ctx.json(bs.getSpecific(price, type));
@@ -124,7 +123,7 @@ public class Driver {
 			Beer updatedBeer = ctx.bodyAsClass(Beer.class);
 			bs.updateById(updatedBeer, id);
 			
-			log.info("Beer" + id + "was updated");
+			log.info("Beer number: " + id + " was updated");
 			
 		});
 		

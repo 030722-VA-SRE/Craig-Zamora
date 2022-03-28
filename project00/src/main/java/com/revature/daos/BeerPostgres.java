@@ -24,7 +24,7 @@ public class BeerPostgres implements BeerDao {
 			ResultSet rs = ps.executeQuery(); // ResultSet object (rs) maintains a cursor point to the current row of
 												// data, usually executed by a query of database (ps in this case) (list
 												// of all query results)
-
+ 
 			while (rs.next()) {
 				Beer beer = new Beer(); // Need to reinstanciate beer as to not cause array to repeatedly populate last
 										// value.
@@ -35,7 +35,7 @@ public class BeerPostgres implements BeerDao {
 
 				beers.add(beer);
 
-			}
+			} 
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

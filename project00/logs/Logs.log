@@ -8,3 +8,21 @@
 16:46:58.004 [main] ERROR  - Testing error
 20:09:25.197 [main] ERROR  - Testing error
 20:37:03.835 [main] ERROR  - Testing error
+22:03:56.524 [main] INFO   - Testing
+22:04:51.014 [main] INFO   - Testing
+22:21:22.985 [JettyServerThreadPool-21] INFO   - Old beer was deleted
+22:21:55.727 [JettyServerThreadPool-21] INFO   - New beer was added
+22:22:19.097 [JettyServerThreadPool-21] INFO   - Beer8was updated
+22:22:48.085 [JettyServerThreadPool-21] INFO   - Beer 1 was not found or does not exist.
+08:46:00.107 [main] INFO   - Running Tests
+08:47:07.025 [main] INFO   - Running Tests
+08:54:07.457 [JettyServerThreadPool-21] INFO   - Old beer was deleted
+08:54:34.805 [JettyServerThreadPool-21] INFO   - New beer was added
+08:55:05.695 [JettyServerThreadPool-21] INFO   - Beer number: 8 was updated
+08:55:26.506 [JettyServerThreadPool-21] INFO   - Beer 1 was not found or does not exist.
+08:57:15.680 [JettyServerThreadPool-16] INFO   - New beer was added
+08:57:22.290 [JettyServerThreadPool-16] INFO   - Beer number: 8 was updated
+09:06:32.936 [JettyServerThreadPool-19] INFO   - Old beer was deleted
+09:06:59.062 [JettyServerThreadPool-19] INFO   - New beer was added
+09:07:28.022 [JettyServerThreadPool-19] INFO   - Beer number: 8 was updated
+09:07:55.137 [JettyServerThreadPool-19] INFO   - Beer 1 was not found or does not exist.
