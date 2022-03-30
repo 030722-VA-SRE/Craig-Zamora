@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "beers")
 public class Beer {
 	
 	@Id
@@ -23,9 +22,9 @@ public class Beer {
 	@Column(nullable = false)
 	private double price;
 	@Column(nullable = false)
-	private String type;
+	private String beerType;
 	@ManyToOne
-	@JoinColumn(nullable = false, unique = true, name = "beer_owner_id")
+	@JoinColumn(name = "beer_owner_id")
 	private User beerOwner;
 	
 	public Beer() {
@@ -57,11 +56,11 @@ public class Beer {
 	}
 
 	public String getType() {
-		return type;
+		return beerType;
 	}
 
 	public void setType(String type) {
-		this.type = type;
+		this.beerType = type;
 	}
 
 	public User getBeerOwner() {
@@ -74,13 +73,13 @@ public class Beer {
 
 	@Override
 	public String toString() {
-		return "Beer [id=" + id + ", beerName=" + beerName + ", price=" + price + ", type=" + type + ", beerOwner="
+		return "Beer [id=" + id + ", beerName=" + beerName + ", price=" + price + ", type=" + beerType + ", beerOwner="
 				+ beerOwner + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(beerName, beerOwner, id, price, type);
+		return Objects.hash(beerName, beerOwner, id, price, beerType);
 	}
 
 	@Override
@@ -94,7 +93,7 @@ public class Beer {
 		Beer other = (Beer) obj;
 		return Objects.equals(beerName, other.beerName) && Objects.equals(beerOwner, other.beerOwner) && id == other.id
 				&& Double.doubleToLongBits(price) == Double.doubleToLongBits(other.price)
-				&& Objects.equals(type, other.type);
+				&& Objects.equals(beerType, other.beerType);
 	}
 
 
