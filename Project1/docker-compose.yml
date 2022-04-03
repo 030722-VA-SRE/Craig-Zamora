@@ -35,10 +35,12 @@ services:
 
 #create container for loki
   loki-image:
-    image: grafana/loki #created image to be pulled from dockerhub
+    image: grafana/loki:latest #created image to be pulled from dockerhub
     ports: 
       - 3100:3100
     container_name: loki-container # name of container to be created
+    # frontend: 
+    #   instance_addr: 127.0.0.1
     # logging:
     #   driver: loki
     #   options:
@@ -46,7 +48,7 @@ services:
 
 #create continaer for grafana
   grafana-image:
-    image: grafana/grafana
+    image: grafana/grafana #created image to be pulled from dockerhub
     ports: 
       - 3000:3000
     container_name: grafana-container
@@ -55,6 +57,14 @@ services:
     depends_on:
       - loki
 
+#create container for promtail
+  promtail-image:
+    image: grafana/promtail #created image to be pulled from dockerhub
+    container_name: promtail-container
+    volumes:
+      - ./promtail/promtail-docker-config.yml:/etc/promtail/docker-config.yaml #passing in promtail file and putting it into container, so when instance gets started in can find its config
+      - ../logs/app.log:/var/log/application.log  #pass in logs from host device to into promtail container
+    command: "--config.file=/etc/promtail/docker-config.yaml"
 
 volumes:
   db-data:
