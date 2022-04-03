@@ -40,7 +40,7 @@ update users set username = 'Cooper' where id = 2;
 
 select * from beer where price = 7.99;
 select * from beer where price = 5.99;
-
+insert into users (username, password) values ('quantum data2', 'TARS2');
 insert into beer (beer_Name, price, beer_Type) values  ('Pink Claw', 1.99, 'fun beer') returning id;
 insert into beer (beer_Name, price, beer_Type) values  ('Pink Claw', 1.99, 'fun beer');
 select * from beer where price = 8.99 and beerType = 'Hard Seltzer';
@@ -48,8 +48,10 @@ select * from beer where price = 8.99 and beerType = 'Hard Seltzer';
 select * from beer where beerType = Hard Seltzer; -- wrong, forgot '' around name
 
 delete from beer where id = 7; -- code to delete user by id;
+delete from users where id = 6; -- code to delete user by id;
 
 update beer set beername = 'TresXXX' where id = 1;
 select * from beer order by id asc; -- code to order table after updating; 
+select * from users order by id asc;
 
 update beer set beername = 'TresXXX',  price = 19.99, beertype  = 'Expensive' where id = 1; 
