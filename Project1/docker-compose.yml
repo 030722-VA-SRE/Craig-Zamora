@@ -35,7 +35,7 @@ services:
 
 #create container for loki
   loki-image:
-    image: grafana/loki:latest #created image to be pulled from dockerhub
+    image: grafana/loki #created image to be pulled from dockerhub
     ports: 
       - 3100:3100
     container_name: loki-container # name of container to be created

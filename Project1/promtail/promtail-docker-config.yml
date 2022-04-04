@@ -14,7 +14,7 @@ scrape_configs:
       - targets:
           - localhost
         labels:
-          job: proj1
+          job: project01-image
           __path__: /var/log/application.log
     pipeline_stages:
       - json:
