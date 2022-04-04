@@ -3,7 +3,7 @@ version: "3.8" #Check docker engine version and match to docker compose version
 services: 
 
 #create container for application:Project 1
-  project01-image: #name of image to be created
+  project01: #name of job
     #image:  pull image on docker hub 
     build: . #looking for dockerfile in local folder to build image
     ports:
@@ -20,7 +20,7 @@ services:
 
 
 #create container for postgres
-  postgres-image: #name of image to be created
+  postgres: #name of job
     image: postgres #created image to be pulled from dockerhub
     ports: 
       - 5432:5432 #Specify ports Host:container
@@ -29,12 +29,10 @@ services:
     container_name: postgres-container # name of container to be created
     volumes:
       - db-data:/var/lib/postgresql/data  #create local file to store data?
-    depends_on:
-      - postgres
     
 
 #create container for loki
-  loki-image:
+  loki:
     image: grafana/loki #created image to be pulled from dockerhub
     ports: 
       - 3100:3100
@@ -47,7 +45,7 @@ services:
     #     loki-url: "https://<user_id>:<password>@logs-prod-us-central1.grafana.net/loki/api/v1/push"
 
 #create continaer for grafana
-  grafana-image:
+  grafana:
     image: grafana/grafana #created image to be pulled from dockerhub
     ports: 
       - 3000:3000
@@ -58,7 +56,7 @@ services:
       - loki
 
 #create container for promtail
-  promtail-image:
+  promtail:
     image: grafana/promtail #created image to be pulled from dockerhub
     container_name: promtail-container
     volumes:
@@ -66,8 +64,22 @@ services:
       - ../logs/app.log:/var/log/application.log  #pass in logs from host device to into promtail container
     command: "--config.file=/etc/promtail/docker-config.yaml"
 
+#create container for prometheus    
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus-container
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+
+
+
 volumes:
   db-data:
     driver: local
   grafana-storage:
+    driver: local
+  prometheus-data:
     driver: local
