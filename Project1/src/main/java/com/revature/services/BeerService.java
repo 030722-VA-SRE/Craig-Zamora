@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.exceptions.UserNotFoundException;
 import com.revature.models.Beer;
-
 import com.revature.repositories.BeerRepository;
 import com.revature.repositories.UserRepository;
 
@@ -32,6 +32,13 @@ public class BeerService {
 
 	public List<Beer> getAllBeers() {
 		return br.findAll();
+	}
+
+
+
+
+	public Beer getBeerbyId(int id) throws UserNotFoundException {
+		return br.findById(id).orElseThrow(UserNotFoundException::new);
 	}
 
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.exceptions.UserNotFoundException;
 import com.revature.models.Beer;
 import com.revature.services.AuthService;
 import com.revature.services.BeerService;
@@ -42,6 +43,16 @@ public class BeerController {
 		log.info("HTTP Request for all beers");
 		return new ResponseEntity<>(bs.getAllBeers(),HttpStatus.OK);
 	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Beer> getById(@PathVariable("id") int id){
+		try {
+			return new ResponseEntity<>(bs.getBeerbyId(id), HttpStatus.OK);
+		} catch (UserNotFoundException e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
 	
 
 	
