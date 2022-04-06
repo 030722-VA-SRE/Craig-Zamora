@@ -13,12 +13,6 @@ import com.revature.repositories.UserRepository;
 @Service
 public class BeerService {
 
-//	public BeerService() {
-//		super();
-//		// TODO Auto-generated constructor stub
-//	}
-
-
 
 
 	private BeerRepository br;
@@ -39,5 +33,10 @@ public class BeerService {
 	public List<Beer> getAllBeers() {
 		return br.findAll();
 	}
+
+
+
+
+	
 
 }

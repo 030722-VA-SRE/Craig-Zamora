@@ -56,7 +56,7 @@ services:
       - loki
 
 #create container for promtail
-  promtail:
+  promtail: #collects logs to send to Loki
     image: grafana/promtail #created image to be pulled from dockerhub
     container_name: promtail-container
     volumes:
@@ -71,8 +71,22 @@ services:
     ports:
       - 9090:9090
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      # - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus:/etc/prometheus   #passing the directory instead of just the onfig file for prometheus
       - prometheus-data:/prometheus
+
+#create container for alertmanager     
+  alertmanager:
+    image: prom/alertmanager:latest
+    volumes:
+      - ./alertmanager:/etc/alertmanager
+    command: 
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/alertmanager'
+    ports:
+      - 9093:9093
+    container_name: alertmanager-container
+
 
 
 
