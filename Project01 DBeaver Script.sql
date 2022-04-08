@@ -19,7 +19,7 @@ insert into beer(beer_Name, price, beer_Type, beer_owner_id) values
 	('Samuel Adams', 7.99, 'IPA' , 2), 
 	('Blue Moon', 10.99, 'Wheat Ale', 1),
 	('Heineken', 5.99, 'lager', 1),	
-	('White Claw', 6.99, 'Hard Seltzer', 4);
+	('White Claw', 6.99, 'Hard Seltzer', null);
 
 insert into users (password, role, username) values 
 	('quantum data', 'EMPL', 'TARS'),
@@ -30,7 +30,7 @@ insert into users (password, role, username) values
 
 
 
-select * from beer
+select * from beer 
 select * from users
 select * from beer order by id asc; 
 select * from users order by id asc;

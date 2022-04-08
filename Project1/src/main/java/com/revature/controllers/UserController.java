@@ -1,7 +1,9 @@
 package com.revature.controllers;
 
 import java.util.List;
+import java.util.UUID;
 
+import org.jboss.logging.MDC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,23 +38,28 @@ public class UserController {
 		super();
 		this.us = us;
 		this.bs = bs;
-	}
-
+	} 
+ 
 	@GetMapping
 	public ResponseEntity<List<UserDTO>> getAllUsers() {
+		MDC.put("RequestId",  UUID.randomUUID().toString());
+		log.debug("Http request for all users succesfull");
 		log.info("HTTP Request for all users");
 		return new ResponseEntity<>(us.getAllUsers(), HttpStatus.OK);
 	}
 
+	//Code to get user by ID only (works while debugging variation)
 	@GetMapping("/{id}")
 	public ResponseEntity<UserDTO> getById(@PathVariable("id") int id, @RequestHeader("Authorization") String token) {
+		MDC.put("RequestId",  UUID.randomUUID().toString());
 		if (token == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 
 		}
 
 		// log.info("HTTP Request for all users by id");
-
+		log.debug("Http request user by ID successful");
+		log.info("HTTP Request for all users");
 		return new ResponseEntity<>(us.getUserById(id), HttpStatus.OK);
 
 	}
@@ -72,9 +79,10 @@ public class UserController {
 
 	@PostMapping // Needs to be string to have entity print out
 	public ResponseEntity<String> createUser(@RequestBody User user) {
+		MDC.put("RequestId",  UUID.randomUUID().toString());
 
 		User newUser = us.createUser(user);
-
+		log.debug("New user " + newUser.getUsername() + " added to database successfully");
 		log.info("New user " + newUser.getUsername() + " added to database");
 		return new ResponseEntity<>("New user " + newUser.getUsername() + " added to database", HttpStatus.CREATED);
 

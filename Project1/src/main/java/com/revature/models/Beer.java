@@ -40,6 +40,10 @@ public class Beer {
 		this.beerOwner = beer.getBeerOwner();
 	}
 
+	public Beer(int i, String string, String string2, double d, int j) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -62,7 +66,7 @@ public class Beer {
 
 	public void setPrice(double price) {
 		this.price = price;
-	}
+	} 
 
 	public String getType() {
 		return beerType;

@@ -1,7 +1,9 @@
 package com.revature.controllers;
 
 import java.util.List;
+import java.util.UUID;
 
+import org.jboss.logging.MDC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,23 +41,23 @@ public class BeerController {
 	public BeerController(BeerService bs, UserService us, AuthService as) {
 		super();
 		this.bs = bs;
-		this.us = us;
+		this.us = us; 
 		this.as = as;
 	}
 
 	@GetMapping
 	public ResponseEntity<List<Beer>> getAllBeers() {
 		log.info("HTTP Request for all beers");
+		log.debug("Got all beers Successfull");
 		return new ResponseEntity<>(bs.getAllBeers(), HttpStatus.OK);
-	}
+	} 
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Beer> getById(@PathVariable("id") int id) {
-		try {
+
+			log.debug("Got beers by Id Successfull");
 			return new ResponseEntity<>(bs.getBeerbyId(id), HttpStatus.OK);
-		} catch (UserNotFoundException e) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+
 	}
 
 
@@ -64,11 +66,13 @@ public class BeerController {
 	public ResponseEntity<String> createBeer(@RequestBody Beer beer, @RequestHeader("Authorization") String token) {
 		char idString = token.charAt(0);
 		int id = Character.getNumericValue(idString);
+		MDC.put("RequestId",  UUID.randomUUID().toString());
 //		if (token == null) {
 		if (us.getUserById(id).equals(us.getUserById(1)) || us.getUserById(id).equals(us.getUserById(2))
 				|| us.getUserById(id).equals(us.getUserById(4))) {
-			Beer newBeer = bs.createBeer(beer);
 
+			Beer newBeer = bs.createBeer(beer);
+			log.debug("Beer created by Employee Successfull");
 			log.info("New beer " + newBeer.getBeerName() + " added to inventory by " + us.getUserById(id));
 			return new ResponseEntity<>("New beer " + newBeer.getBeerName() + " added to inventory by employee",
 					HttpStatus.CREATED);
@@ -83,11 +87,13 @@ public class BeerController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteBeer(@PathVariable("id") int beerId,
 			@RequestHeader("Authorization") String token) {
+		MDC.put("RequestId",  UUID.randomUUID().toString());
 		char idString = token.charAt(0);
 		int userId = Character.getNumericValue(idString);
 //		if (token == null) {
 		if (us.getUserById(userId).equals(us.getUserById(1)) || us.getUserById(userId).equals(us.getUserById(2))
 				|| us.getUserById(userId).equals(us.getUserById(4))) {
+			log.debug("Beer removed by employee successfull");
 			log.info("Beer " + bs.getBeerbyId(beerId) + " has been removed from inventory " + us.getUserById(userId));
 			bs.deleteBeerById(beerId);
 
@@ -102,10 +108,13 @@ public class BeerController {
 
 	}
 	
-	@PutMapping
-	public ResponseEntity<String> purchaseBeer(Beer beer){
-		bs.updatebeer(beer);
-		return new ResponseEntity<>("Beer bought", HttpStatus.OK);
+	@PutMapping("/{id}")
+	public ResponseEntity<String> purchaseBeer(@PathVariable("id") int id, Beer beer){
+		MDC.put("RequestId",  UUID.randomUUID().toString());
+		bs.updatebeer(beer, id);
+		log.debug("Beer bought succesfully");
+		log.info("Beer bought");
+		return new ResponseEntity<>("Beer bought ", HttpStatus.OK);
 	}
 
 }
