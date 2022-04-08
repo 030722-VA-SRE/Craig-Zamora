@@ -40,7 +40,7 @@ public class UserDTO {
 		this.username = username;
 	}
 
-	
+	//changed to String
 	public UserRole getRole() {
 		return role;
 	}

@@ -24,11 +24,20 @@ public class Beer {
 	@Column(nullable = false)
 	private String beerType;
 	@ManyToOne
-	@JoinColumn(name = "beer_owner_id")
+	@JoinColumn
 	private User beerOwner;
 	
 	public Beer() {
 		super();
+	}
+
+	public Beer(Beer beer) {
+		super();
+		this.id = beer.getId();
+		this.beerName = beer.getBeerName();
+		this.price = beer.getPrice();
+		this.beerType = beer.getType();
+		this.beerOwner = beer.getBeerOwner();
 	}
 
 	public int getId() {
